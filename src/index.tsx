@@ -13,6 +13,6 @@ root.render(
     </React.StrictMode>
 );
 
-export { default as PrefectureItem } from "./components/PrefectureItem";
+export { default as PrefecturesList } from "./components/PrefecturesList";
 
 reportWebVitals();
