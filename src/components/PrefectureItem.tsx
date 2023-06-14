@@ -2,16 +2,15 @@ import {useState} from "react"
 
 interface ItemProps{
     prefecture: string;
-    isChecked: boolean;
+    onChange: any;
 }
 
 const PrefectureItem = (props :ItemProps) =>{
-    const [isChecked, setIsChecked] = useState(true);
     return (
         <label>
             <input
                 type="checkbox"
-                checked={props.isChecked}
+                onChange={props.onChange}
             />
             {props.prefecture}
         </label>
