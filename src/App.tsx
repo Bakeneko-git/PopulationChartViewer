@@ -11,7 +11,6 @@ const App = () => {
     <>
       <h1>YumemiAssignment</h1>
       <PrefectureItem prefecture="東京都" onChange={PrefectureChecked} />
-      <p>{prefecture?"True":"False"}</p>
     </>
   );
 }
