@@ -1,20 +1,17 @@
-import {useState} from "react"
+import { useState } from "react";
 
-interface ItemProps{
+interface ItemProps {
     prefecture: string;
     onChange: any;
 }
 
-const PrefectureItem = (props :ItemProps) =>{
+const PrefectureItem = (props: ItemProps) => {
     return (
         <label>
-            <input
-                type="checkbox"
-                onChange={props.onChange}
-            />
+            <input type="checkbox" onChange={props.onChange} />
             {props.prefecture}
         </label>
     );
-}
+};
 
 export default PrefectureItem;
