@@ -13,6 +13,8 @@ root.render(
     </React.StrictMode>
 );
 
+
 export { default as PrefecturesList } from "./components/PrefecturesList";
+export { default as GetPrefecturesJson } from "./components/GetPrefecturesJson";
 
 reportWebVitals();
