@@ -20,10 +20,8 @@ test("都道府県一覧を取得できているか", async () => {
         json: () => Promise.resolve(mockJson),
     });
 
-    GetPrefecturesJson((data: any) => {
-        //正しく取得されるか
-        expect(data).toEqual(mockJson);
-    });
+    //正しく取得されるか
+    expect(GetPrefecturesJson()).toEqual(mockJson);
 
     // APIが正しく呼び出されたかを確認
     expect(fetch).toHaveBeenCalledWith(
