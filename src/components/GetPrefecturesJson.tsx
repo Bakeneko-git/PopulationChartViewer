@@ -1,4 +1,4 @@
-const GetPrefecturesJson = (callback: CallableFunction) => {
+const GetPrefecturesJson = async () => {
     const apikey = process.env.REACT_APP_RESAS_API_KEY;
     const headers: Record<string, string> = {
         "X-API-KEY": apikey !== undefined ? apikey : "",
@@ -7,12 +7,11 @@ const GetPrefecturesJson = (callback: CallableFunction) => {
     const requestOptions: RequestInit = {
         headers: headers,
     };
-    fetch(
+    const result = await fetch(
         "https://opendata.resas-portal.go.jp/api/v1/prefectures",
         requestOptions
-    )
-        .then((response) => response.json())
-        .then((data) => callback(data));
+    ).then((response) => response.json());
+    return result;
 };
 
 export default GetPrefecturesJson;
