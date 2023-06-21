@@ -7,11 +7,7 @@ const App = () => {
         message: "",
         result: [],
     });
-    const [prefectures, setPrefectures] = useState({
-        東京都: false,
-        大阪府: false,
-        北海道: false,
-    });
+    const [prefectures, setPrefectures] = useState({});
     const PrefecturesUpdate = async (data: any) => {
         await setPrefecturesJson(data);
     };
