@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { PrefecturesList, GetPrefecturesJson } from "./index";
+import ChartView from "./components/ChartView";
 
 const App = () => {
     const [prefecturesJson, setPrefecturesJson] = useState({
@@ -32,6 +33,13 @@ const App = () => {
             <PrefecturesList
                 prefectures={prefectures}
                 onChange={PrefecturesChecked}
+            />
+            <ChartView
+                title="data"
+                xAxisLabel="年"
+                yAxisLabel="人口"
+                categories={["1年目","2年目","3年目"]}
+                data={[{name:"大阪",data:[2,1,3]},{name:"東京",data:[1,2,3]}]}
             />
         </>
     );
