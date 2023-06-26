@@ -70,7 +70,7 @@ const App = () => {
     return (
         <>
             <h1>YumemiAssignment</h1>
-            <div>
+            <div className="container">
                 <PrefecturesList
                     prefectures={prefectures}
                     onChange={PrefecturesChecked}
