@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/population_chart_viewer/static/css/main.c7d42229.css",
+    "main.js": "/population_chart_viewer/static/js/main.fcdc1eb9.js",
+    "static/js/787.1bbc7da8.chunk.js": "/population_chart_viewer/static/js/787.1bbc7da8.chunk.js",
+    "index.html": "/population_chart_viewer/index.html",
+    "main.c7d42229.css.map": "/population_chart_viewer/static/css/main.c7d42229.css.map",
+    "main.fcdc1eb9.js.map": "/population_chart_viewer/static/js/main.fcdc1eb9.js.map",
+    "787.1bbc7da8.chunk.js.map": "/population_chart_viewer/static/js/787.1bbc7da8.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c7d42229.css",
+    "static/js/main.fcdc1eb9.js"
+  ]
+}
