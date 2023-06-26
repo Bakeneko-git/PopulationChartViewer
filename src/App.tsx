@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { PrefecturesList, GetPrefecturesJson } from "./index";
+import { PrefecturesList, GetPrefecturesJson, TypeSelector } from "./index";
 import ChartView from "./components/ChartView";
 
 const App = () => {
@@ -11,29 +11,45 @@ const App = () => {
     const [prefectures, setPrefectures] = useState({});
     const [chartData, setChartData] = useState({});
     const [categories, setCategories] = useState([]);
-    const ChartDataUpdate = (data:any) => {
-        setChartData(data)
-    }
-    const PrefecturesUpdate = async (data: any) => {
-        await setPrefecturesJson(data);
+    const viewChoice = ["総人口", "年少人口", "生産年齢人口", "老年人口"];
+    const [viewSelectNumber, setViewSelectNumber] = useState(0);
+    const [viewSelectText, setViewSelectText] = useState(viewChoice[0]);
+
+    const ChangeViewType = (e: any) => {
+        const titleText = viewChoice[e.target.value];
+        const num = e.target.value;
+        setViewSelectNumber(num);
+        setViewSelectText(titleText);
+        ChangeViewData(num, prefectures);
     };
-    const PrefecturesChecked = (data:any) => {
-        const type = 0;
+    const ChartDataUpdate = (data: any) => {
+        setChartData(data);
+    };
+    const PrefecturesUpdate = (data: any) => {
+        setPrefecturesJson(data);
+    };
+    const PrefecturesChecked = (data: any) => {
         setPrefectures(data);
+        ChangeViewData(viewSelectNumber, data);
+    };
+
+    const ChangeViewData = (type: number, data: any) => {
         //表示データを変更
-        const checkedPref = Object.keys(data)
-            .filter(key => data[key].isChecked === true)
+        const checkedPref = Object.keys(data).filter(
+            (key) => data[key].isChecked === true
+        );
         const setData = checkedPref.map((pref) => {
-                let categories = data[pref].data[type].data.map((item:any) => item.year);
-                console.log(categories);
-                let addObj = {
-                    "name" : pref,
-                    "data" : data[pref].data[type].data.map((item:any) => item.value)
-                }
-                setCategories(categories);
-                return addObj;
-            })
-        ChartDataUpdate(setData)
+            let categories = data[pref].data[type].data.map(
+                (item: any) => item.year
+            );
+            let addObj = {
+                name: pref,
+                data: data[pref].data[type].data.map((item: any) => item.value),
+            };
+            setCategories(categories);
+            return addObj;
+        });
+        ChartDataUpdate(setData);
     };
     useEffect(() => {
         (async () => {
@@ -43,10 +59,10 @@ const App = () => {
             PrefecturesUpdate(result);
             result.result.forEach((item: any) => {
                 transformdData[item.prefName] = {
-                    isChecked : false,
-                    prefCode : item.prefCode,
-                    data : undefined
-                }
+                    isChecked: false,
+                    prefCode: item.prefCode,
+                    data: undefined,
+                };
             });
             setPrefectures(transformdData);
         })();
@@ -54,12 +70,15 @@ const App = () => {
     return (
         <>
             <h1>YumemiAssignment</h1>
-            <PrefecturesList
-                prefectures={prefectures}
-                onChange={PrefecturesChecked}
-            />
+            <div>
+                <PrefecturesList
+                    prefectures={prefectures}
+                    onChange={PrefecturesChecked}
+                />
+            </div>
+            <TypeSelector onChange={ChangeViewType} />
             <ChartView
-                title="data"
+                title={viewSelectText}
                 xAxisLabel="年"
                 yAxisLabel="人口"
                 categories={categories}
