@@ -16,5 +16,6 @@ root.render(
 
 export { default as PrefecturesList } from "./components/PrefecturesList";
 export { default as GetPrefecturesJson } from "./components/GetPrefecturesJson";
+export { default as TypeSelector } from "./components/TypeSelector";
 
 reportWebVitals();
