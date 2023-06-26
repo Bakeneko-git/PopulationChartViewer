@@ -10,11 +10,31 @@ const App = () => {
         result: [],
     });
     const [prefectures, setPrefectures] = useState({});
+    const [chartData, setChartData] = useState({});
+    const [categories, setCategories] = useState([]);
+    const ChartDataUpdate = (data:any) => {
+        setChartData(data)
+    }
     const PrefecturesUpdate = async (data: any) => {
         await setPrefecturesJson(data);
     };
-    const PrefecturesChecked = (event: any, index: string) => {
-        setPrefectures({ ...prefectures, [index]: event.target.checked });
+    const PrefecturesChecked = (data:any) => {
+        const type = 0;
+        setPrefectures(data);
+        //表示データを変更
+        const checkedPref = Object.keys(data)
+            .filter(key => data[key].isChecked === true)
+        const setData = checkedPref.map((pref) => {
+                let categories = data[pref].data[type].data.map((item:any) => item.year);
+                console.log(categories);
+                let addObj = {
+                    "name" : pref,
+                    "data" : data[pref].data[type].data.map((item:any) => item.value)
+                }
+                setCategories(categories);
+                return addObj;
+            })
+        ChartDataUpdate(setData)
     };
     useEffect(() => {
         (async () => {
@@ -23,12 +43,13 @@ const App = () => {
             const transformdData: any = {};
             PrefecturesUpdate(result);
             result.result.forEach((item: any) => {
-                transformdData[item.prefName] = false;
+                transformdData[item.prefName] = {
+                    isChecked : false,
+                    prefCode : item.prefCode,
+                    data : undefined
+                }
             });
             setPrefectures(transformdData);
-
-            //初回実行で13（東京都）のデータを取得(テスト)
-            const population = await GetPopulationJson("13");
         })();
     }, []);
     return (
@@ -42,8 +63,8 @@ const App = () => {
                 title="data"
                 xAxisLabel="年"
                 yAxisLabel="人口"
-                categories={["1年目","2年目","3年目"]}
-                data={[{name:"大阪",data:[2,1,3]},{name:"東京",data:[1,2,3]}]}
+                categories={categories}
+                data={chartData}
             />
         </>
     );
