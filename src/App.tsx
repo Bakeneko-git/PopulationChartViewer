@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { PrefecturesList, GetPrefecturesJson } from "./index";
 import ChartView from "./components/ChartView";
+import GetPopulationJson from "./components/GetPopulationJson";
 
 const App = () => {
     const [prefecturesJson, setPrefecturesJson] = useState({
@@ -25,6 +26,9 @@ const App = () => {
                 transformdData[item.prefName] = false;
             });
             setPrefectures(transformdData);
+
+            //初回実行で13（東京都）のデータを取得(テスト)
+            const population = await GetPopulationJson("13");
         })();
     }, []);
     return (
