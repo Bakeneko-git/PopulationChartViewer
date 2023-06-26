@@ -13,8 +13,10 @@ const App = () => {
     const PrefecturesUpdate = async (data: any) => {
         await setPrefecturesJson(data);
     };
-    const PrefecturesChecked = (event: any, index: string) => {
-        setPrefectures({ ...prefectures, [index]: event.target.checked });
+    const PrefecturesChecked = (data:any) => {
+        setPrefectures(data);
+        //確認
+        console.log(data);
     };
     useEffect(() => {
         (async () => {
@@ -23,7 +25,11 @@ const App = () => {
             const transformdData: any = {};
             PrefecturesUpdate(result);
             result.result.forEach((item: any) => {
-                transformdData[item.prefName] = false;
+                transformdData[item.prefName] = {
+                    isChecked : false,
+                    prefCode : item.prefCode,
+                    data : undefined
+                }
             });
             setPrefectures(transformdData);
 
