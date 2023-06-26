@@ -7,7 +7,7 @@ interface ItemProps {
 
 const PrefectureItem = (props: ItemProps) => {
     return (
-        <label>
+        <label className="checkbox-label">
             <input type="checkbox" onChange={props.onChange} />
             {props.prefecture}
         </label>
